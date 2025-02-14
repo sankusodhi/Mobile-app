@@ -15,11 +15,11 @@
     <!-- ✅ Theme Color (For Mobile Status Bar) -->
     <meta name="theme-color" content="#007bff">
 
-    <!-- ✅ Register JavaScript File -->
+    <!-- ✅ Register JavaScript Files -->
     <script defer src="/script.js"></script>
 
     <!-- ✅ Register Service Worker -->
-    <script>
+    <script defer>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')
                 .then(() => console.log("✅ Service Worker Registered"))
@@ -31,8 +31,34 @@
 
     <h1>Welcome to My PWA</h1>
     <p>This is a Progressive Web App example.</p>
+
+    <!-- ✅ Install Button -->
     <button id="install-button" style="display: none;">Install App</button>
 
+    <!-- ✅ Install Button Handling -->
+    <script defer>
+        let deferredPrompt;
+
+        window.addEventListener("beforeinstallprompt", (event) => {
+            event.preventDefault();
+            deferredPrompt = event;
+
+            const installButton = document.getElementById("install-button");
+            installButton.style.display = "block";
+
+            installButton.addEventListener("click", () => {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === "accepted") {
+                        console.log("✅ User installed the PWA");
+                    } else {
+                        console.log("❌ User dismissed the install prompt");
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
