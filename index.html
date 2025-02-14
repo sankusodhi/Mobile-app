@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My PWA App</title>
+    
+    <!-- ✅ PWA Manifest File -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- ✅ Add PWA Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512x512.png">
+
+    <!-- ✅ Theme Color (For Mobile Status Bar) -->
+    <meta name="theme-color" content="#007bff">
+
+    <!-- ✅ Register JavaScript File -->
+    <script defer src="/script.js"></script>
+
+    <!-- ✅ Register Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(() => console.log("✅ Service Worker Registered"))
+                .catch((error) => console.log("❌ Service Worker Registration Failed:", error));
+        }
+    </script>
+</head>
+<body>
+
+    <h1>Welcome to My PWA</h1>
+    <p>This is a Progressive Web App example.</p>
+
+</body>
+</html>
